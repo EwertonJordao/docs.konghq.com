@@ -6,10 +6,8 @@ content-type: how-to
 
 ## Configuration
 
-The current version of {{site.base_gateway}}'s implementation supports
-configuring
-[GCP Secrets Manager](https://cloud.google.com/secret-manager/) in two
-ways:
+The current version of {{site.base_gateway}}'s implementation supports configuring
+[GCP Secrets Manager](https://cloud.google.com/secret-manager/) in two ways:
 
 * Environment variables
 * Workload Identity
@@ -28,9 +26,8 @@ with the GCP API and grant you access.
 To use GCP Secrets Manager with
 [Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity)
 on a GKE cluster, update your pod spec so that the service account is
-attached to the pod. For configuration information, read the [Workload
-Identity configuration
-documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to).
+attached to the pod. For configuration information, read the
+[Workload Identity configuration documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to).
 
 {:.note}
 > With Workload Identity, setting the `GCP_SERVICE_ACCOUNT` isn't necessary.
@@ -57,7 +54,19 @@ You can now reference the secret's individual resources like this:
 ```
 
 Note that both the provider (`gcp`) as well as the GCP project ID
-(`my_project_id`) need to be specified.
+(`my_project_id`) need to be specified. You can configure project ID
+with an environment variable too (before starting Kong):
+
+```bash 
+export KONG_VAULT_GCP_PROJECT_ID=my_project_id
+```
+
+Then you don't need to repeat it in references:
+
+```bash
+{vault://gcp/my-secret-name/foo}
+{vault://gcp/my-secret-name/snip}
+```
 
 ## Entity
 
@@ -67,7 +76,7 @@ that encapsulates the provider and the GCP project ID:
 {:.important}
 > **API Endpoint update**
 >
-> If you're using 2.8.2 or below, or have not set `vaults_use_new_style_api=on` in `kong.conf` you will need to replace `/vaults/` with `/vaults-beta/` in the examples below.
+> If you're using 2.8.2 or below, and have not set `vaults_use_new_style_api=on` in `kong.conf` you will need to replace `/vaults/` with `/vaults-beta/` in the examples below.
 
 {% navtabs codeblock %}
 {% navtab cURL %}
@@ -116,5 +125,3 @@ through it:
 {vault://my-gcp-sm-vault/my-secret-name/foo}
 {vault://my-gcp-sm-vault/my-secret-name/snip}
 ```
-
-When you use the Vault entity, you no longer need to specify the GCP project ID to access the secrets.

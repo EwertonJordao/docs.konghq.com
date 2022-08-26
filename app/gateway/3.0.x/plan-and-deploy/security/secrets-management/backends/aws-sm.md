@@ -5,13 +5,20 @@ badge: enterprise
 
 ## Configuration
 
-[AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) can be configured in multiple ways. The current version of {{site.base_gateway}} implementation only supports
-configuring via environment variables.
+[AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) can be configured in multiple ways.
+The current version of {{site.base_gateway}} implementation only supports configuring via environment
+variables.
 
 ```bash
 export AWS_ACCESS_KEY_ID=<access_key_id>
 export AWS_SECRET_ACCESS_KEY=<secrets_access_key>
 export AWS_REGION=<aws-region>
+```
+
+Region used by default with references, can also be specified with:
+
+```bash
+export KONG_VAULT_AWS_REGION=<aws-region>
 ```
 
 ## Examples
@@ -36,12 +43,13 @@ Access these secrets from `my-secret-name` like this:
 
 ## Entity
 
-The Vault entity can only be used once the database is initialized. Secrets for values that are used _before_ the database is initialized can't make use of the Vaults entity.
+The Vault entity can only be used once the database is initialized. Secrets for values that are
+used _before_ the database is initialized can't make use of the Vaults entity.
 
 {:.important}
 > **API Endpoint update**
 >
-> If you're using 2.8.2 or below, or have not set `vaults_use_new_style_api=on` in `kong.conf` you will need to replace `/vaults/` with `/vaults-beta/` in the examples below.
+> If you're using 2.8.2 or below, and have not set `vaults_use_new_style_api=on` in `kong.conf` you will need to replace `/vaults/` with `/vaults-beta/` in the examples below.
 
 
 {% navtabs codeblock %}

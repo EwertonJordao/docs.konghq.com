@@ -23,12 +23,12 @@ You can also store this information in an entity.
 ## Entity
 
 {:.note}
-The Vault entity can only be used once the database is initialized. Secrets for values that are used _before_ the database is initialized can't make use of the Vaults entity.
+> The Vault entity can only be used once the database is initialized. Secrets for values that are used _before_ the database is initialized can't make use of the Vaults entity.
 
 {:.important}
 > **API Endpoint update**
 >
-> If you're using 2.8.2 or below, or have not set `vaults_use_new_style_api=on` in `kong.conf` you will need to replace `/vaults/` with `/vaults-beta/` in the examples below.
+> If you're using 2.8.2 or below, and have not set `vaults_use_new_style_api=on` in `kong.conf` you will need to replace `/vaults/` with `/vaults-beta/` in the examples below.
 
 {% navtabs codeblock %}
 {% navtab cURL %}
